@@ -5,7 +5,7 @@
         <div class="header">
           <a href="/">
             <img src="~@/assets/logo.svg" class="logo" alt="logo">
-            <span class="title">ZXWH</span>
+            <span class="title">ZHWH</span>
           </a>
         </div>
         <div class="desc">
@@ -17,7 +17,7 @@
 
       <div class="footer">
         <div class="copyright">
-          Copyright &copy; 2020 ZXWH
+          Copyright &copy; 2020 ZHWH
         </div>
       </div>
     </div>
