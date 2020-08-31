@@ -13,7 +13,7 @@ export const asyncRouterMap = [
       {
         path: '/dashboard/workplace',
         name: 'Dashboard',
-        meta: { title: '仪表盘', keepAlive: true, icon: '' },
+        meta: { title: '总览', keepAlive: true, icon: '' },
         component: () => import('@/views/dashboard/workplace')
       },
       {
@@ -21,6 +21,12 @@ export const asyncRouterMap = [
         name: 'ContractManagemnt',
         meta: { title: '合同管理', keepAlive: true, icon: '' },
         component: () => import('@/views/contract-management/contract-management')
+      },
+      {
+        path: '/role',
+        name: 'Role',
+        meta: { title: '角色', keepAlive: true, icon: '' },
+        component: () => import('@/views/role/role-list')
       }
     ]
   },

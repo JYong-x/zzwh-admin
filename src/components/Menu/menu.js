@@ -125,6 +125,7 @@ export default {
       )
     },
     renderSubMenu (menu) {
+      console.log(menu)
       const itemArr = []
       if (!menu.hideChildrenInMenu) {
         menu.children.forEach(item => itemArr.push(this.renderItem(item)))
