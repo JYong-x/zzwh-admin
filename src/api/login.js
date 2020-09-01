@@ -1,6 +1,11 @@
-import api from './index'
 import { axios } from '@/utils/request'
 
+const api = {
+  Login: '/login',
+  Logout: '/auth/logout',
+  // get my info
+  UserInfo: '/user/info'
+}
 /**
  * login func
  * parameter: {
@@ -14,7 +19,7 @@ import { axios } from '@/utils/request'
  */
 export function login (parameter) {
   return axios({
-    url: '/auth/login',
+    url: api.Login,
     method: 'post',
     data: parameter
   })

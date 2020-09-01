@@ -23,6 +23,12 @@ export const asyncRouterMap = [
         component: () => import('@/views/contract-management/contract-management')
       },
       {
+        path: '/cost',
+        name: 'Cost',
+        meta: { title: '费用', keepAlive: true, icon: '' },
+        component: () => import('@/views/cost/cost')
+      },
+      {
         path: '/role',
         name: 'Role',
         meta: { title: '角色', keepAlive: true, icon: '' },

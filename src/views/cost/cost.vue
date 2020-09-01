@@ -32,7 +32,7 @@
 import { PageView } from '@/layouts'
 import STable from '@/components/Table'
 export default {
-  name: 'Contract',
+  name: 'Cost',
   components: {
     PageView,
     STable
@@ -103,7 +103,7 @@ export default {
 
       selectedRowKeys: [],
       loadData: params => {
-        return this.$api.contract.getList(this.params, this.pagination).then(res => {
+        return this.$api.cost.getList(this.params, this.pagination).then(res => {
           return res
       })
       },
@@ -129,7 +129,7 @@ export default {
     },
 
     deleteData (record) {
-      this.$api.contract.deleteData(record.id).then(res => {
+      this.$api.cost.deleteData(record.id).then(res => {
         this.$refs.table.refresh()
       })
     }
