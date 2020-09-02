@@ -17,10 +17,10 @@ export const asyncRouterMap = [
         component: () => import('@/views/dashboard/workplace')
       },
       {
-        path: '/contract-management',
-        name: 'ContractManagemnt',
+        path: '/contract',
+        name: 'Contract',
         meta: { title: '合同管理', keepAlive: true, icon: '' },
-        component: () => import('@/views/contract-management/contract-management')
+        component: () => import('@/views/contract/contract')
       },
       {
         path: '/cost',

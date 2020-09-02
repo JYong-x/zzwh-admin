@@ -135,7 +135,7 @@ export default {
     loadData (pagination, filters, sorter) {
       this.localLoading = true
       const parameter = Object.assign({
-        pageNo: (pagination && pagination.current) ||
+        page: (pagination && pagination.current) ||
           this.showPagination && this.localPagination.current || this.pageNum,
         pageSize: (pagination && pagination.pageSize) ||
           this.showPagination && this.localPagination.pageSize || this.pageSize
@@ -156,8 +156,9 @@ export default {
       if ((typeof result === 'object' || typeof result === 'function') && typeof result.then === 'function') {
         result.then(r => {
           this.localPagination = this.showPagination && Object.assign({}, this.localPagination, {
-            current: r.pageNo, // 返回结果中的当前分页数
-            total: r.totalCount, // 返回结果中的总记录数
+            current: r.pager.page, // 返回结果中的当前分页数
+            total: r.pager.totolRows, // 返回结果中的总记录数
+            showTotal: total => `共 ${total} 条`,
             showSizeChanger: this.showSizeChanger,
             pageSize: (pagination && pagination.pageSize) ||
               this.localPagination.pageSize
@@ -179,7 +180,7 @@ export default {
             this.localPagination = false
           }
           console.log('loadData -> this.localPagination', this.localPagination)
-          this.localDataSource = r // 返回结果中的数组数据
+          this.localDataSource = r.list // 返回结果中的数组数据
           this.localLoading = false
         })
       }
@@ -300,6 +301,7 @@ export default {
       this[k] && (props[k] = this[k])
       return props[k]
     })
+    console.log(props, this.$scopedSlots)
     const table = (
       <a-table {...{ props, scopedSlots: { ...this.$scopedSlots } }} onChange={this.loadData} onExpand={ (expanded, record) => { this.$emit('expand', expanded, record) } }>
         { Object.keys(this.$slots).map(name => (<template slot={name}>{this.$slots[name]}</template>)) }

@@ -65,3 +65,14 @@ export function removeLoadingAnimate (id = '', timeout = 1500) {
     document.body.removeChild(document.getElementById(id))
   }, timeout)
 }
+
+export function trimData (data) {
+  console.log(data)
+  const result = {}
+  for (const key in data) {
+    if (data[key]) {
+      result[key] = data[key]
+    }
+  }
+  return result
+}

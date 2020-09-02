@@ -39,6 +39,9 @@ const vueConfig = {
   },
 
   chainWebpack: (config) => {
+    // 修复HMR
+    config.resolve.symlinks(true)
+
     config.resolve.alias
       .set('@$', resolve('src'))
 
@@ -69,6 +72,7 @@ const vueConfig = {
   },
 
   css: {
+    sourceMap: true,
     loaderOptions: {
       less: {
         modifyVars: {
@@ -85,6 +89,8 @@ const vueConfig = {
   },
 
   devServer: {
+    open: true,
+    hotOnly: true,
     // development server port 8000
     port: 8080,
     // If you want to turn on the proxy, please remove the mockjs /src/main.jsL11

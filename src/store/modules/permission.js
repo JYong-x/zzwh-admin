@@ -43,7 +43,6 @@ function filterAsyncRouter (routerMap, roles) {
       if (route.children && route.children.length) {
         route.children = filterAsyncRouter(route.children, roles)
       }
-      console.log(route)
       return true
     }
     return false

@@ -2,7 +2,8 @@ import { axios } from '@/utils/request'
 
 const api = {
   list: '/api/v2/list',
-  delete: '/api/v2/delete'
+  delete: '/api/v2/delete',
+  add: '/api/v2/create'
 }
 
 function getList (params, pagination) {
@@ -19,7 +20,16 @@ function deleteData (contractId) {
   })
 }
 
+function addData (data) {
+  return axios({
+    url: `${api.add}`,
+    method: 'POST',
+    data: data
+  })
+}
+
 export default {
   getList,
-  deleteData
+  deleteData,
+  addData
 }

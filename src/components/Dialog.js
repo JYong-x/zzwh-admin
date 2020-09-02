@@ -32,7 +32,8 @@ export default (Vue) => {
     const dialogInstance = new Vue({
       data () {
         return {
-          visible: true
+          visible: true,
+          confirmLoading: false
         }
       },
       router: _vm.$router,
@@ -48,14 +49,22 @@ export default (Vue) => {
             this.visible = false
             this.$refs._component.$emit('close')
             this.$refs._component.$emit('cancel')
+            if (typeof modalProps.cancel === 'function') {
+              modalProps.cancel()
+            }
             dialogInstance.$destroy()
           })
         },
         handleOk () {
+          this.confirmLoading = true
           handle(this.$refs._component.onOK || this.$refs._component.onOk, () => {
+            this.confirmLoading = false
             this.visible = false
             this.$refs._component.$emit('close')
             this.$refs._component.$emit('ok')
+            if (typeof modalProps.ok === 'function') {
+              modalProps.ok()
+            }
             dialogInstance.$destroy()
           })
         }
@@ -70,7 +79,8 @@ export default (Vue) => {
           attrs: Object.assign({}, {
             ...(modalProps.attrs || modalProps)
           }, {
-            visible: this.visible
+            visible: this.visible,
+            confirmLoading: this.confirmLoading
           }),
           on: Object.assign({}, {
             ...(modalProps.on || modalProps)

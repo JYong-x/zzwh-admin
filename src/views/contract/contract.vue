@@ -1,7 +1,8 @@
 <template>
   <page-view :title="false">
     <div class="table-operator-wrap">
-      <a-button type="primary" :disabled="!selectedRowKeys.length">批量提交</a-button>
+      <a-button type="primary" @click="addContractClick">添加</a-button>
+      <a-button :disabled="!selectedRowKeys.length">批量提交</a-button>
     </div>
     <a-card :bordered="false">
       <template slot="title">
@@ -12,10 +13,11 @@
         </a-radio-group>
       </template>
       <template slot="extra">
-        <a-input-search></a-input-search>
+        <a-input-search @pressEnter="search"></a-input-search>
       </template>
       <s-table
         ref="table"
+        showPagination="auto"
         :columns="columns"
         :data="loadData"
         :row-key="record => record.id"
@@ -29,20 +31,19 @@
 </template>
 
 <script>
+import { trimData } from '@/utils/util'
 import { PageView } from '@/layouts'
 import STable from '@/components/Table'
+import ContractForm from './modules/ContractForm'
 export default {
   name: 'Contract',
   components: {
     PageView,
-    STable
+    STable,
+    ContractForm
   },
   data () {
     return {
-      pagination: {
-        page: 1,
-        pageSize: 10
-      },
       params: {},
       loading: false,
       columns: [
@@ -100,10 +101,14 @@ export default {
           name: '待办'
         }
       ],
+      searchValue: '',
 
       selectedRowKeys: [],
-      loadData: params => {
-        return this.$api.contract.getList(this.params, this.pagination).then(res => {
+      loadData: parameter => {
+        console.log(123123)
+        const params = trimData(this.params)
+        return this.$api.contract.getList(params, parameter).then(res => {
+          console.log(res)
           return res
       })
       },
@@ -116,16 +121,28 @@ export default {
     }
   },
   created () {
-    this.loadData()
   },
   methods: {
-    onSelectChange (pagination) {
-      this.pagination.page = pagination.current
-      this.pagination.pageSize = pagination.pageSize
+    search (e) {
+      this.params.name = e.target.value
+      this.$refs.table.refresh()
     },
     selectionChange (selectedRowKeys) {
-      console.log(selectedRowKeys)
       this.selectedRowKeys = selectedRowKeys
+    },
+
+    addContractClick (contract) {
+      this.$dialog(ContractForm,
+        {
+          contract
+        },
+        {
+          title: '添加合同',
+          width: 700,
+          centered: true,
+          maskClosable: false,
+          ok: this.loadData
+        })
     },
 
     deleteData (record) {

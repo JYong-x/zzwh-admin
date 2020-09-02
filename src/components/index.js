@@ -25,7 +25,7 @@
 // import Result from '@/components/Result'
 // import IconSelector from '@/components/IconSelector'
 // import TagSelect from '@/components/TagSelect'
-// import ExceptionPage from '@/components/Exception'
+import ExceptionPage from '@/components/Exception'
 // import StandardFormRow from '@/components/StandardFormRow'
 // import ArticleListContent from '@/components/ArticleListContent'
 
@@ -56,7 +56,7 @@ export {
   // STable,
   // MultiTab,
   // Result,
-  // ExceptionPage,
+  ExceptionPage,
   // IconSelector,
   // TagSelect,
   // StandardFormRow,
