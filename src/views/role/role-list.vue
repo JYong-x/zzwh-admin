@@ -39,6 +39,18 @@ export default {
               desc: ''
             },
             {
+              id: '11',
+              permissionKey: 'dashboard',
+              permissionName: '增加合同',
+              desc: ''
+            },
+            {
+              id: '111',
+              permissionKey: 'dashboard',
+              permissionName: '删除合同',
+              desc: ''
+            },
+            {
               id: '2',
               permissionKey: 'dashboard',
               permissionName: '合同管理',

@@ -1,15 +1,17 @@
 <template>
   <page-view :title="false">
     <div class="table-operator-wrap">
-      <a-button type="primary" @click="addContractClick">添加</a-button>
+      <a-button type="primary" @click="() => addContractClick()">添加</a-button>
       <a-button :disabled="!selectedRowKeys.length">批量提交</a-button>
     </div>
     <a-card :bordered="false">
       <template slot="title">
         <a-radio-group v-model="activeFilterRadio">
-          <a-radio-button v-for="radio of filterRadios" :key="radio.value" :value="radio.value">
-            {{ radio.name }}
-          </a-radio-button>
+          <a-radio-button
+            v-for="radio of filterRadios"
+            :key="radio.value"
+            :value="radio.value"
+          >{{ radio.name }}</a-radio-button>
         </a-radio-group>
       </template>
       <template slot="extra">
@@ -21,7 +23,8 @@
         :columns="columns"
         :data="loadData"
         :row-key="record => record.id"
-        :row-selection="{selectedRowKeys: selectedRowKeys, onChange: selectionChange}">
+        :row-selection="{selectedRowKeys: selectedRowKeys, onChange: selectionChange}"
+      >
         <div slot="action" slot-scope="text, record" class="table-action">
           <a @click="deleteData(record)">删除</a>
         </div>
@@ -34,13 +37,12 @@
 import { trimData } from '@/utils/util'
 import { PageView } from '@/layouts'
 import STable from '@/components/Table'
-import ContractForm from './modules/ContractForm'
+import FormS from '@/components/Form'
 export default {
   name: 'Contract',
   components: {
     PageView,
-    STable,
-    ContractForm
+    STable
   },
   data () {
     return {
@@ -89,6 +91,15 @@ export default {
           scopedSlots: { customRender: 'action' }
         }
       ],
+      formItems: [
+        {
+          label: '名称',
+          field: 'name',
+          type: 'input',
+          rules: { required: true, message: '请输入合同名称', trigger: 'blur' }
+        }
+      ],
+      formApi: { module: 'contract', api: 'addData' },
       contractList: [],
       activeFilterRadio: '全部',
       filterRadios: [
@@ -131,10 +142,12 @@ export default {
       this.selectedRowKeys = selectedRowKeys
     },
 
-    addContractClick (contract) {
-      this.$dialog(ContractForm,
+    addContractClick () {
+      this.$dialog(FormS,
         {
-          contract
+          formItems: this.formItems,
+          form: {},
+          formApi: this.formApi
         },
         {
           title: '添加合同',
