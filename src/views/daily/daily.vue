@@ -54,22 +54,6 @@ export default {
           dataIndex: 'name'
         },
         {
-          title: '申请人',
-          dataIndex: 'apply'
-        },
-        {
-          title: '审核人',
-          dataIndex: 'approve'
-        },
-        {
-          title: '已付款',
-          dataIndex: 'paid'
-        },
-        {
-          title: '未付款',
-          dataIndex: 'unPaid'
-        },
-        {
           title: '生效时间',
           dataIndex: 'startOn'
         },
@@ -95,26 +79,6 @@ export default {
           rules: { required: true, message: '请输入名称', trigger: 'blur' }
         },
         {
-          label: '申请人',
-          field: 'apply',
-          type: 'input'
-        },
-        {
-          label: '审核人',
-          field: 'approve',
-          type: 'input'
-        },
-        {
-          label: '已付款',
-          field: 'paid',
-          type: 'input'
-        },
-        {
-          label: '未付款',
-          field: 'unPaid',
-          type: 'input'
-        },
-        {
           label: '生效时间',
           field: 'startOn',
           type: 'date',
@@ -137,7 +101,7 @@ export default {
           type: 'upload'
         }
       ],
-      formApi: { module: 'contract', api: 'addData' },
+      formApi: { module: 'daily', api: 'addData' },
       activeFilterRadio: '全部',
       filterRadios: [
         {

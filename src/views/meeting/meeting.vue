@@ -54,28 +54,8 @@ export default {
           dataIndex: 'name'
         },
         {
-          title: '申请人',
-          dataIndex: 'apply'
-        },
-        {
-          title: '审核人',
-          dataIndex: 'approve'
-        },
-        {
-          title: '已付款',
-          dataIndex: 'paid'
-        },
-        {
-          title: '未付款',
-          dataIndex: 'unPaid'
-        },
-        {
-          title: '生效时间',
-          dataIndex: 'startOn'
-        },
-        {
-          title: '到期时间',
-          dataIndex: 'endOn'
+          title: '详情',
+          dataIndex: 'content'
         },
         {
           title: '创建时间',
@@ -95,40 +75,8 @@ export default {
           rules: { required: true, message: '请输入名称', trigger: 'blur' }
         },
         {
-          label: '申请人',
-          field: 'apply',
-          type: 'input'
-        },
-        {
-          label: '审核人',
-          field: 'approve',
-          type: 'input'
-        },
-        {
-          label: '已付款',
-          field: 'paid',
-          type: 'input'
-        },
-        {
-          label: '未付款',
-          field: 'unPaid',
-          type: 'input'
-        },
-        {
-          label: '生效时间',
-          field: 'startOn',
-          type: 'date',
-          rules: { required: true, message: '请输入生效时间', trigger: 'blur' }
-        },
-        {
-          label: '到期时间',
-          field: 'endOn',
-          type: 'date',
-          rules: { required: true, message: '请输入到期时间', trigger: 'blur' }
-        },
-        {
-          label: '简介',
-          field: 'desc',
+          label: '详情',
+          field: 'content',
           type: 'textarea'
         },
         {
@@ -137,7 +85,7 @@ export default {
           type: 'upload'
         }
       ],
-      formApi: { module: 'contract', api: 'addData' },
+      formApi: { module: 'meeting', api: 'addData' },
       activeFilterRadio: '全部',
       filterRadios: [
         {
@@ -187,7 +135,7 @@ export default {
           formApi: this.formApi
         },
         {
-          title: '添加合同',
+          title: '添加会议',
           width: 700,
           centered: true,
           maskClosable: false,

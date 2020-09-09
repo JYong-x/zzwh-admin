@@ -11,8 +11,7 @@
       :menu="menus"
       :theme="theme"
       :mode="mode"
-      @select="onSelect"
-      style="padding: 16px 0px;"></s-menu>
+      @select="onSelect"></s-menu>
   </a-layout-sider>
 
 </template>

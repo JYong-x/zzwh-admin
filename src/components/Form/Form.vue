@@ -16,9 +16,21 @@
       >
         <a-input v-model="stateForm[item.field]" v-if="item.type === 'input'"></a-input>
         <a-textarea v-else-if="item.type === 'textarea'" v-model="stateForm[item.field]"></a-textarea>
+        <a-date-picker v-else-if="item.type === 'date'" v-model="stateForm[item.field]"></a-date-picker>
         <a-select v-else-if="item.type === 'select'">
           <a-select-option></a-select-option>
         </a-select>
+        <a-upload
+          v-else-if="item.type === 'upload'"
+          name="img"
+          action="/upload/file"
+          list-type="picture"
+          @change="fileChange"
+        >
+          <a-button>
+            <a-icon type="upload" />上传
+          </a-button>
+        </a-upload>
       </a-form-model-item>
     </template>
   </a-form-model>
@@ -78,20 +90,21 @@ export default {
     this.stateForm = { ...this.stateForm }
   },
     methods: {
-    onOk () {
-      return new Promise(resolve => {
-        console.log(this.formApi, this.$api[this.formApi.module])
-        this.$api[this.formApi.module][this.formApi.api](this.stateForm).then(res => {
-          console.log(res)
-           resolve(true)
+      fileChange () {},
+      onOk () {
+        return new Promise(resolve => {
+          console.log(this.formApi, this.$api[this.formApi.module])
+          this.$api[this.formApi.module][this.formApi.api](this.stateForm).then(res => {
+            console.log(res)
+            resolve(true)
+          })
         })
-      })
-    },
-    onCancel () {
-      return new Promise(resolve => {
-        resolve(true)
-      })
-    }
+      },
+      onCancel () {
+        return new Promise(resolve => {
+          resolve(true)
+        })
+      }
   }
 }
 </script>

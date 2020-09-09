@@ -1,9 +1,9 @@
 import { axios } from '@/utils/request'
 
 const api = {
-  list: '/api/v3/list',
-  delete: '/api/v3/delete',
-  add: '/api/v3/create'
+  list: '/api/v4/list',
+  delete: '/api/v4/delete',
+  add: '/api/v4/create'
 }
 
 function getList (params, pagination) {

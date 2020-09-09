@@ -29,6 +29,24 @@ export const asyncRouterMap = [
         component: () => import('@/views/cost/cost')
       },
       {
+        path: '/daily',
+        name: 'Daily',
+        meta: { title: '日常', keepAlive: true, icon: '' },
+        component: () => import('@/views/daily/daily')
+      },
+      {
+        path: '/meeting',
+        name: 'meeting',
+        meta: { title: '会议', keepAlive: true, icon: '' },
+        component: () => import('@/views/meeting/meeting')
+      },
+      {
+        path: '/depart',
+        name: 'Depart',
+        meta: { title: '部门', keepAlive: true, icon: '' },
+        component: () => import('@/views/depart/depart')
+      },
+      {
         path: '/role',
         name: 'Role',
         meta: { title: '角色', keepAlive: true, icon: '' },

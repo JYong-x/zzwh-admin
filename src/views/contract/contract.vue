@@ -1,7 +1,7 @@
 <template>
   <page-view :title="false">
     <div class="table-operator-wrap">
-      <a-button type="primary" @click="() => addContractClick()">添加</a-button>
+      <a-button type="primary" @click="() => addItem()">添加</a-button>
       <a-button :disabled="!selectedRowKeys.length">批量提交</a-button>
     </div>
     <a-card :bordered="false">
@@ -97,10 +97,76 @@ export default {
           field: 'name',
           type: 'input',
           rules: { required: true, message: '请输入合同名称', trigger: 'blur' }
+        },
+        {
+          label: '生效时间',
+          field: 'startOn',
+          type: 'date',
+          rules: { required: true, message: '请输入生效时间', trigger: 'blur' }
+        },
+        {
+          label: '到期时间',
+          field: 'endOn',
+          type: 'date',
+          rules: { required: true, message: '请输入到期时间', trigger: 'blur' }
+        },
+        {
+          label: '简介',
+          field: 'desc',
+          type: 'textarea'
+        },
+        {
+          label: '图片',
+          field: 'imgUrl',
+          type: 'upload'
+        },
+        {
+          label: '甲代表方单位',
+          field: 'partACompany',
+          type: 'input'
+        },
+        {
+          label: '甲代表方姓名',
+          field: 'partAName',
+          type: 'input'
+        },
+        {
+          label: '甲代表方身份证号',
+          field: 'partAPhone',
+          type: 'input'
+        },
+        {
+          label: '乙代表方单位',
+          field: 'partBCompany',
+          type: 'input'
+        },
+        {
+          label: '乙代表方姓名',
+          field: 'partBName',
+          type: 'input'
+        },
+        {
+          label: '乙方代表方身份证号',
+          field: 'partBPhone',
+          type: 'input'
+        },
+        {
+          label: '丙代表方单位',
+          field: 'partCCompany',
+          type: 'input'
+        },
+        {
+          label: '丙代表方姓名',
+          field: 'partCName',
+          type: 'input'
+        },
+        {
+          label: '丙方代表方身份证号',
+          field: 'partCPhone',
+          type: 'input'
         }
       ],
       formApi: { module: 'contract', api: 'addData' },
-      contractList: [],
       activeFilterRadio: '全部',
       filterRadios: [
         {
@@ -142,7 +208,7 @@ export default {
       this.selectedRowKeys = selectedRowKeys
     },
 
-    addContractClick () {
+    addItem () {
       this.$dialog(FormS,
         {
           formItems: this.formItems,

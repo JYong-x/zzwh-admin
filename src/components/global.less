@@ -1,8 +1,21 @@
 @import './index.less';
 
 body {
-
-
+  .ant-modal-wrap {
+    height: 100%;
+    .ant-modal {
+      height: calc(100% - 100px);
+      .ant-modal-content {
+        display: flex;
+        flex-direction: column;
+        max-height: 100%;
+        .ant-modal-body {
+          height: calc(100% - 108px);
+          overflow-y: auto;
+        }
+      }
+    }
+  }
 }
 
 #app {
@@ -64,10 +77,14 @@ body {
   &.ant-layout-has-sider {
     flex-direction: row;
   }
+  .ant-layout-header {
+    height: 48px;
+    line-height: 48px;
+  }
 
   .trigger {
     font-size: 20px;
-    line-height: 64px;
+    line-height: 48px;
     padding: 0 24px;
     cursor: pointer;
     transition: color 0.3s;
@@ -138,7 +155,7 @@ body {
   }
 
   .header {
-    height: 64px;
+    height: 48px;
     padding: 0 12px 0 0;
     background: #fff;
     box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
@@ -397,10 +414,10 @@ body {
 
   .logo {
     position: relative;
-    height: 64px;
+    height: 48px;
     padding-left: 24px;
     overflow: hidden;
-    line-height: 64px;
+    line-height: 48px;
     background: #002140;
     transition: all .3s;
 
