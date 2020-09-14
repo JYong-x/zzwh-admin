@@ -45,7 +45,7 @@ export default {
       },
       rules: {
         name: [
-          { required: true, message: '请输入合同名称', trigger: 'blur' }
+          { required: true, message: '请输入合同名称', trigger: 'change' }
         ]
       }
     }

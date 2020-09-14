@@ -63,7 +63,7 @@ export default {
       type: Object,
       default: () => {
         return {
-          span: 4
+          span: 5
         }
       }
     },
@@ -71,7 +71,7 @@ export default {
       type: Object,
       default: () => {
         return {
-          span: 14
+          span: 18
         }
       }
     }

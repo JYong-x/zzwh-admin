@@ -76,19 +76,19 @@ export default {
           label: '名称',
           field: 'name',
           type: 'input',
-          rules: { required: true, message: '请输入名称', trigger: 'blur' }
+          rules: { required: true, message: '请输入名称', trigger: 'change' }
         },
         {
           label: '生效时间',
           field: 'startOn',
           type: 'date',
-          rules: { required: true, message: '请输入生效时间', trigger: 'blur' }
+          rules: { required: true, message: '请输入生效时间', trigger: 'change' }
         },
         {
           label: '到期时间',
           field: 'endOn',
           type: 'date',
-          rules: { required: true, message: '请输入到期时间', trigger: 'blur' }
+          rules: { required: true, message: '请输入到期时间', trigger: 'change' }
         },
         {
           label: '简介',

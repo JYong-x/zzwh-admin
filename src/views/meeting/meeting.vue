@@ -72,7 +72,7 @@ export default {
           label: '名称',
           field: 'name',
           type: 'input',
-          rules: { required: true, message: '请输入名称', trigger: 'blur' }
+          rules: { required: true, message: '请输入名称', trigger: 'change' }
         },
         {
           label: '详情',

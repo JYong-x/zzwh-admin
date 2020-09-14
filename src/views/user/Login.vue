@@ -7,7 +7,13 @@
       :form="form"
       @submit="handleSubmit"
     >
-      <a-alert v-if="isLoginError" type="error" showIcon style="margin-bottom: 24px;" message="账户或密码错误" />
+      <a-alert
+        v-if="isLoginError"
+        type="error"
+        showIcon
+        style="margin-bottom: 24px;"
+        message="账户或密码错误"
+      />
       <a-form-item>
         <a-input
           size="large"
@@ -18,7 +24,7 @@
             {rules: [{ required: true, message: '请输入帐户名或邮箱地址' }, { validator: handleUsernameOrEmail }], validateTrigger: 'change'}
           ]"
         >
-          <a-icon slot="prefix" type="user" :style="{ color: 'rgba(0,0,0,.25)' }"/>
+          <a-icon slot="prefix" type="user" :style="{ color: 'rgba(0,0,0,.25)' }" />
         </a-input>
       </a-form-item>
 
@@ -30,10 +36,10 @@
           placeholder="密码"
           v-decorator="[
             'password',
-            {rules: [{ required: true, message: '请输入密码' }], validateTrigger: 'blur'}
+            {rules: [{ required: true, message: '请输入密码' }], validatetrigger: 'change'}
           ]"
         >
-          <a-icon slot="prefix" type="lock" :style="{ color: 'rgba(0,0,0,.25)' }"/>
+          <a-icon slot="prefix" type="lock" :style="{ color: 'rgba(0,0,0,.25)' }" />
         </a-input>
       </a-form-item>
 
@@ -47,7 +53,6 @@
           :disabled="state.loginBtn"
         >确定</a-button>
       </a-form-item>
-
     </a-form>
   </div>
 </template>
