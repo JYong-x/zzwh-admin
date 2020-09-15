@@ -1,15 +1,15 @@
 import { axios } from '@/utils/request'
 
 const api = {
-  list: '/api/v2/list',
-  delete: '/api/v2/delete',
-  add: '/api/v2/create'
+  list: '/v2/list',
+  delete: '/v2/delete',
+  add: '/v2/create'
 }
 
 function getList (params, pagination) {
   return axios({
     url: `${api.list}?page=${pagination.page}&pageSize=${pagination.pageSize}`,
-    method: 'POST',
+    method: 'GET',
     data: params
   })
 }

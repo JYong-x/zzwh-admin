@@ -1,17 +1,15 @@
 <template>
   <page-view :title="false">
-    <div class="table-operator-wrap">
+    <div class="table-operator">
       <a-button type="primary" @click="() => addItem()">添加</a-button>
       <a-button :disabled="!selectedRowKeys.length">批量提交</a-button>
     </div>
     <a-card :bordered="false">
       <template slot="title">
         <a-radio-group v-model="activeFilterRadio">
-          <a-radio-button
-            v-for="radio of filterRadios"
-            :key="radio.value"
-            :value="radio.value"
-          >{{ radio.name }}</a-radio-button>
+          <a-radio-button v-for="radio of filterRadios" :key="radio.value" :value="radio.value">{{
+            radio.name
+          }}</a-radio-button>
         </a-radio-group>
       </template>
       <template slot="extra">
@@ -22,8 +20,8 @@
         showPagination="auto"
         :columns="columns"
         :data="loadData"
-        :row-key="record => record.id"
-        :row-selection="{selectedRowKeys: selectedRowKeys, onChange: selectionChange}"
+        :row-key="(record) => record.id"
+        :row-selection="{ selectedRowKeys: selectedRowKeys, onChange: selectionChange }"
       >
         <div slot="action" slot-scope="text, record" class="table-action">
           <a @click="deleteData(record)">删除</a>
@@ -152,13 +150,13 @@ export default {
       searchValue: '',
 
       selectedRowKeys: [],
-      loadData: parameter => {
+      loadData: (parameter) => {
         console.log(123123)
         const params = trimData(this.params)
-        return this.$api.cost.getList(params, parameter).then(res => {
+        return this.$api.cost.getList(params, parameter).then((res) => {
           console.log(res)
-          return res
-      })
+          return res.data
+        })
       },
       options: {
         rowSelection: {
@@ -168,8 +166,7 @@ export default {
       }
     }
   },
-  created () {
-  },
+  created () {},
   methods: {
     search (e) {
       this.params.name = e.target.value
@@ -180,7 +177,8 @@ export default {
     },
 
     addItem () {
-      this.$dialog(FormS,
+      this.$dialog(
+        FormS,
         {
           formItems: this.formItems,
           form: {},
@@ -192,11 +190,12 @@ export default {
           centered: true,
           maskClosable: false,
           ok: this.loadData
-        })
+        }
+      )
     },
 
     deleteData (record) {
-      this.$api.cost.deleteData(record.id).then(res => {
+      this.$api.cost.deleteData(record.id).then((res) => {
         this.$refs.table.refresh()
       })
     }
@@ -205,7 +204,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.table-operator-wrap {
+.table-operator {
   display: flex;
   justify-content: flex-end;
   margin-bottom: 12px;

@@ -13,12 +13,16 @@ export default (Vue) => {
       document.body.appendChild(dialogDiv)
     }
 
-    const handle = function (checkFunction, afterHandel) {
+    const handle = function (checkFunction, afterHandel, self) {
       if (checkFunction instanceof Function) {
         const res = checkFunction()
         if (res instanceof Promise) {
           res.then(c => {
-            c && afterHandel()
+            if (c) {
+              afterHandel(c)
+            } else {
+              self.confirmLoading = false
+            }
           })
         } else {
           res && afterHandel()
@@ -57,16 +61,17 @@ export default (Vue) => {
         },
         handleOk () {
           this.confirmLoading = true
-          handle(this.$refs._component.onOK || this.$refs._component.onOk, () => {
+          handle(this.$refs._component.onOK || this.$refs._component.onOk, (data) => {
             this.confirmLoading = false
             this.visible = false
             this.$refs._component.$emit('close')
             this.$refs._component.$emit('ok')
+            console.log(data)
             if (typeof modalProps.ok === 'function') {
-              modalProps.ok()
+              modalProps.ok(data)
             }
             dialogInstance.$destroy()
-          })
+          }, this)
         }
       },
       render: function (h) {

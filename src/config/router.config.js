@@ -13,25 +13,25 @@ export const asyncRouterMap = [
       {
         path: '/dashboard/workplace',
         name: 'Dashboard',
-        meta: { title: '总览', keepAlive: true, icon: '' },
+        meta: { title: '总览', keepAlive: true, icon: 'dashboard' },
         component: () => import('@/views/dashboard/workplace')
       },
       {
         path: '/contract',
         name: 'Contract',
-        meta: { title: '合同管理', keepAlive: true, icon: '' },
+        meta: { title: '合同管理', keepAlive: true, icon: 'profile' },
         component: () => import('@/views/contract/contract')
       },
       {
         path: '/cost',
         name: 'Cost',
-        meta: { title: '费用', keepAlive: true, icon: '' },
+        meta: { title: '费用', keepAlive: true, icon: 'account-book' },
         component: () => import('@/views/cost/cost')
       },
       {
         path: '/daily',
         name: 'Daily',
-        meta: { title: '日常', keepAlive: true, icon: '' },
+        meta: { title: '日常', keepAlive: true, icon: 'book' },
         component: () => import('@/views/daily/daily')
       },
       {

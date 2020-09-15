@@ -40,6 +40,8 @@
 </template>
 
 <script>
+import moment from 'moment'
+
 export default {
   name: 'Form',
   props: {
@@ -90,13 +92,28 @@ export default {
     this.stateForm = { ...this.stateForm }
   },
     methods: {
+      moment,
       fileChange () {},
+      // dateChange (dateObj, field) {
+      //   const { dateString } = dateObj
+      //   this.stateForm[field] = dateString
+      // },
       onOk () {
         return new Promise(resolve => {
+          this.$refs.form.validate((valid, values) => {
+          if (!valid) {
+            resolve(false)
+            return
+          }
           console.log(this.formApi, this.$api[this.formApi.module])
-          this.$api[this.formApi.module][this.formApi.api](this.stateForm).then(res => {
-            console.log(res)
-            resolve(true)
+            this.$api[this.formApi.module][this.formApi.api](this.stateForm).then(res => {
+              console.log(res)
+              if (res && res.status === 'success') {
+                resolve(res.data)
+              } else {
+                resolve(false)
+              }
+            })
           })
         })
       },
