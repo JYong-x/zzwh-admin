@@ -18,6 +18,7 @@
       <s-table
         ref="table"
         showPagination="auto"
+        :scroll="{x: 1500}"
         :columns="columns"
         :data="loadData"
         :row-key="(record) => record.id"
@@ -32,6 +33,7 @@
 </template>
 
 <script>
+import moment from 'moment'
 import { trimData } from '@/utils/util'
 import { PageView } from '@/layouts'
 import STable from '@/components/Table'
@@ -49,44 +51,59 @@ export default {
       columns: [
         {
           title: '名称',
-          dataIndex: 'name'
+          dataIndex: 'name',
+          width: 100,
+          fixed: 'left'
         },
         {
           title: '编号',
-          dataIndex: 'id'
+          dataIndex: 'id',
+          width: 100
         },
         {
           title: '甲方代表单位',
-          dataIndex: 'partACompany'
+          dataIndex: 'partACompany',
+          width: 150
         },
         {
           title: '乙方代表单位',
-          dataIndex: 'partBCompany'
+          dataIndex: 'partBCompany',
+          width: 150
         },
         {
           title: '丙方代表单位',
-          dataIndex: 'partCCompany'
+          dataIndex: 'partCCompany',
+          width: 150
         },
         {
           title: '到期时间',
-          dataIndex: 'endOn'
+          dataIndex: 'endOn',
+          customRender: text => moment(text).format('YYYY-MM-DD HH:mm:ss'),
+          width: 100
         },
         {
           title: '创建人',
-          dataIndex: 'createBy'
+          dataIndex: 'createBy',
+          width: 100
         },
         {
           title: '创建时间',
-          dataIndex: 'createOn'
+          dataIndex: 'createOn',
+          customRender: text => moment(text).format('YYYY-MM-DD HH:mm:ss'),
+          width: 100
         },
         {
           title: '生效时间',
-          dataIndex: 'startOn'
+          dataIndex: 'startOn',
+          customRender: text => moment(text).format('YYYY-MM-DD HH:mm:ss'),
+          width: 100
         },
         {
           title: '操作',
           dataIndex: 'action',
-          scopedSlots: { customRender: 'action' }
+          scopedSlots: { customRender: 'action' },
+          width: 100,
+          fixed: 'right'
         }
       ],
       formItems: [
@@ -180,7 +197,7 @@ export default {
 
       selectedRowKeys: [],
       loadData: (parameter) => {
-        console.log(123123)
+        console.log(parameter)
         const params = trimData(this.params)
         return this.$api.contract.getList(params, parameter).then((res) => {
           console.log(res)
@@ -195,11 +212,14 @@ export default {
       }
     }
   },
-  created () {},
+  created () {
+    console.log(this.moment('2020-09-23T13:10:42.250Z').format('YYYY-MM-DD HH:mm:ss'))
+  },
   methods: {
+    moment,
     search (e) {
       this.params.name = e.target.value
-      this.$refs.table.refresh()
+      this.$refs.table.refresh(true)
     },
     selectionChange (selectedRowKeys) {
       this.selectedRowKeys = selectedRowKeys
@@ -218,15 +238,18 @@ export default {
           width: 700,
           centered: true,
           maskClosable: false,
-          ok: this.loadData
+          ok: this.refreshData
         }
       )
     },
 
     deleteData (record) {
       this.$api.contract.deleteData(record.id).then((res) => {
-        this.$refs.table.refresh()
+        this.refreshData()
       })
+    },
+    refreshData () {
+      this.$refs.table.refresh()
     }
   }
 }
