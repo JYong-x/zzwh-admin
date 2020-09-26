@@ -22,9 +22,10 @@
         </a-select>
         <a-upload
           v-else-if="item.type === 'upload'"
-          name="img"
-          action="/upload/file"
+          name="file"
+          action="/api/upload"
           list-type="picture"
+          :headers="headers"
           @change="fileChange"
         >
           <a-button>
@@ -41,6 +42,7 @@
 
 <script>
 import moment from 'moment'
+import { ACCESS_TOKEN } from '@/store/mutation-types'
 
 export default {
   name: 'Form',
@@ -80,16 +82,19 @@ export default {
   },
   data () {
     return {
-      stateForm: {}
+      stateForm: {},
+      headers: {
+        AccessToken: this.$ls.get(ACCESS_TOKEN)
+      }
     }
   },
   created () {
-    console.log(23)
+    console.log(this.form)
     console.log(this.formItems)
     this.formItems.forEach(item => {
       this.stateForm[item.field] = ''
     })
-    this.stateForm = { ...this.stateForm }
+    this.stateForm = Object.assign(this.stateForm, this.form)
   },
     methods: {
       moment,
