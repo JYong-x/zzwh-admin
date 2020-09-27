@@ -16,7 +16,7 @@
       >
         <a-input v-model="stateForm[item.field]" v-if="item.type === 'input'"></a-input>
         <a-textarea v-else-if="item.type === 'textarea'" v-model="stateForm[item.field]"></a-textarea>
-        <a-date-picker v-else-if="item.type === 'date'" v-model="stateForm[item.field]"></a-date-picker>
+        <a-date-picker v-else-if="item.type === 'date'" :value="date(stateForm[item.field])" @change="dateChange($event, item.field)"></a-date-picker>
         <a-select v-else-if="item.type === 'select'">
           <a-select-option></a-select-option>
         </a-select>
@@ -26,7 +26,7 @@
           action="/api/upload"
           list-type="picture"
           :headers="headers"
-          @change="fileChange"
+          @change="fileChange($event, item.field)"
         >
           <a-button>
             <a-icon type="upload" />上传
@@ -88,21 +88,36 @@ export default {
       }
     }
   },
+  computed: {
+    date () {
+      return function (val) {
+        if (val) {
+          return moment(val)
+        } else {
+          return undefined
+        }
+      }
+    }
+  },
   created () {
-    console.log(this.form)
-    console.log(this.formItems)
     this.formItems.forEach(item => {
       this.stateForm[item.field] = ''
     })
-    this.stateForm = Object.assign(this.stateForm, this.form)
+    Object.assign(this.stateForm, this.form)
   },
     methods: {
       moment,
-      fileChange () {},
-      // dateChange (dateObj, field) {
-      //   const { dateString } = dateObj
-      //   this.stateForm[field] = dateString
-      // },
+      fileChange (data, field) {
+        const { response } = data.file
+        if (response && response.data) {
+          const { AccessURL } = response.data
+          this.stateForm[field] = AccessURL
+        }
+      },
+      dateChange (dateObj, field) {
+        this.stateForm[field] = dateObj
+        this.stateForm = { ...this.stateForm }
+      },
       onOk () {
         return new Promise(resolve => {
           this.$refs.form.validate((valid, values) => {
