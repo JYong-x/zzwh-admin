@@ -2,7 +2,7 @@
   <div class="footer">
     <div class="copyright">
       Copyright
-      <a-icon type="copyright" /> 2020 <span>zhwh</span>
+      <a-icon type="copyright" /> 2020 <span>zzwh</span>
     </div>
   </div>
 </template>

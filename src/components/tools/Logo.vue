@@ -1,6 +1,6 @@
 <template>
   <div class="logo">
-    <router-link :to="{name:'dashboard'}">
+    <router-link :to="{ name: 'dashboard' }">
       <LogoSvg alt="logo" />
       <h1 v-if="showTitle">{{ title }}</h1>
     </router-link>
@@ -18,7 +18,7 @@ export default {
   props: {
     title: {
       type: String,
-      default: 'ZHWH',
+      default: 'ZZWH',
       required: false
     },
     showTitle: {

@@ -2,7 +2,7 @@
   <page-view :title="false">
     <a-card title="角色列表">
       <template slot="extra">
-        <a-button type="primary" icon="plus">添加角色</a-button>
+        <a-button type="primary" icon="plus" @click="() => addRole()">添加角色</a-button>
       </template>
       <a-list class="role-list" item-layout="horizontal" :data-source="roleList">
         <a-list-item slot="renderItem" slot-scope="item">
@@ -22,11 +22,26 @@
 
 <script>
 import { PageView } from '@/layouts'
+import RoleForm from './RoleForm'
 export default {
   name: 'RoleList',
   components: { PageView },
   data () {
     return {
+      formItems: [
+        {
+          label: '角色名称',
+          field: 'name',
+          type: 'input',
+          rules: { required: true, message: '请输入合同名称', trigger: 'change' }
+        },
+        {
+          label: '',
+          field: 'permissions',
+          type: 'checkboxGroup'
+        }
+      ],
+      formApi: { module: 'role', api: 'addData' },
       roleList: [
         {
           id: '1',
@@ -85,7 +100,33 @@ export default {
       ]
     }
   },
+  created () {
+    this.getList()
+  },
   methods: {
+    getList () {
+      this.$api.role.getList().then((res) => {
+          console.log(res)
+          this.roleList = res.data || []
+        })
+    },
+    addRole () {
+      this.$dialog(
+        RoleForm,
+        {
+          formItems: this.formItems,
+          form: {},
+          formApi: this.formApi
+        },
+        {
+          title: '添加角色',
+          width: 700,
+          centered: true,
+          maskClosable: false,
+          ok: this.getList
+        }
+      )
+    },
     editRole () {},
     deleteRole () {}
   }

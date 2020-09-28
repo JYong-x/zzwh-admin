@@ -18,13 +18,21 @@
       <s-table
         ref="table"
         showPagination="auto"
+        :scroll="{x: 1500}"
         :columns="columns"
         :data="loadData"
         :row-key="(record) => record.id"
         :row-selection="{ selectedRowKeys: selectedRowKeys, onChange: selectionChange }"
       >
-        <div slot="action" slot-scope="text, record" class="table-action">
-          <a @click="deleteData(record)">删除</a>
+        <div slot="action" slot-scope="text, record" class="table-row-action">
+          <template>
+            <a-divider type="vertical" />
+            <a @click="editData(record)">编辑</a>
+          </template>
+          <template>
+            <a-divider type="vertical" />
+            <a @click="deleteData(record)">删除</a>
+          </template>
         </div>
       </s-table>
     </a-card>
@@ -32,6 +40,7 @@
 </template>
 
 <script>
+import moment from 'moment'
 import { trimData } from '@/utils/util'
 import { PageView } from '@/layouts'
 import STable from '@/components/Table'
@@ -48,42 +57,41 @@ export default {
       loading: false,
       columns: [
         {
-          title: '名称',
-          dataIndex: 'name'
+          title: '姓名',
+          dataIndex: 'name',
+          width: 100,
+          fixed: 'left',
+          ellipsis: true
         },
         {
-          title: '详情',
-          dataIndex: 'content'
+          title: '编号',
+          dataIndex: 'id',
+          width: 100,
+          ellipsis: true
         },
         {
-          title: '创建时间',
-          dataIndex: 'createOn'
+          title: '部门',
+          dataIndex: 'depart',
+          width: 150,
+          ellipsis: true
         },
         {
           title: '操作',
           dataIndex: 'action',
-          scopedSlots: { customRender: 'action' }
+          scopedSlots: { customRender: 'action' },
+          width: 120,
+          fixed: 'right'
         }
       ],
       formItems: [
         {
-          label: '名称',
+          label: '姓名',
           field: 'name',
           type: 'input',
-          rules: { required: true, message: '请输入名称', trigger: 'change' }
-        },
-        {
-          label: '详情',
-          field: 'content',
-          type: 'textarea'
-        },
-        {
-          label: '图片',
-          field: 'imgUrl',
-          type: 'upload'
+          rules: { required: true, message: '请输入姓名', trigger: 'change' }
         }
       ],
-      formApi: { module: 'meeting', api: 'addData' },
+      formApi: { module: 'contract', api: 'addData' },
       activeFilterRadio: '全部',
       filterRadios: [
         {
@@ -99,9 +107,9 @@ export default {
 
       selectedRowKeys: [],
       loadData: (parameter) => {
-        console.log(123123)
+        console.log(parameter)
         const params = trimData(this.params)
-        return this.$api.cost.getList(params, parameter).then((res) => {
+        return this.$api.contract.getList(params, parameter).then((res) => {
           console.log(res)
           return res.data
         })
@@ -114,11 +122,13 @@ export default {
       }
     }
   },
-  created () {},
+  created () {
+  },
   methods: {
+    moment,
     search (e) {
       this.params.name = e.target.value
-      this.$refs.table.refresh()
+      this.$refs.table.refresh(true)
     },
     selectionChange (selectedRowKeys) {
       this.selectedRowKeys = selectedRowKeys
@@ -133,19 +143,40 @@ export default {
           formApi: this.formApi
         },
         {
-          title: '添加会议',
+          title: '添加用户',
           width: 700,
           centered: true,
           maskClosable: false,
-          ok: this.loadData
+          ok: this.refreshData
+        }
+      )
+    },
+
+    editData (record) {
+      this.$dialog(
+        FormS,
+        {
+          formItems: this.formItems,
+          form: record,
+          formApi: this.formApi
+        },
+        {
+          title: '编辑用户',
+          width: 700,
+          centered: true,
+          maskClosable: false,
+          ok: this.refreshData
         }
       )
     },
 
     deleteData (record) {
-      this.$api.cost.deleteData(record.id).then((res) => {
-        this.$refs.table.refresh()
+      this.$api.contract.deleteData(record.id).then((res) => {
+        this.refreshData()
       })
+    },
+    refreshData () {
+      this.$refs.table.refresh()
     }
   }
 }

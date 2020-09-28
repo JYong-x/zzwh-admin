@@ -104,6 +104,7 @@ export default {
       this.stateForm[item.field] = ''
     })
     Object.assign(this.stateForm, this.form)
+    this.stateForm = { ...this.stateForm }
   },
     methods: {
       moment,
@@ -125,7 +126,6 @@ export default {
             resolve(false)
             return
           }
-          console.log(this.formApi, this.$api[this.formApi.module])
             this.$api[this.formApi.module][this.formApi.api](this.stateForm).then(res => {
               if (res && res.status === 'success') {
                 resolve(res.data)

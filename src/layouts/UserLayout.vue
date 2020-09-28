@@ -4,21 +4,17 @@
       <div class="top">
         <div class="header">
           <a href="/">
-            <img src="~@/assets/logo.svg" class="logo" alt="logo">
-            <span class="title">ZHWH</span>
+            <img src="~@/assets/logo.svg" class="logo" alt="logo" />
+            <span class="title">ZZWH</span>
           </a>
         </div>
-        <div class="desc">
-          合同管理系统
-        </div>
+        <div class="desc">合同管理系统</div>
       </div>
 
       <route-view></route-view>
 
       <div class="footer">
-        <div class="copyright">
-          Copyright &copy; 2020 ZHWH
-        </div>
+        <div class="copyright">Copyright &copy; 2020 ZZWH</div>
       </div>
     </div>
   </div>

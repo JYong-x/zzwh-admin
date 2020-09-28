@@ -35,21 +35,33 @@ export const asyncRouterMap = [
         component: () => import('@/views/daily/daily')
       },
       {
-        path: '/meeting',
-        name: 'meeting',
-        meta: { title: '会议', keepAlive: true, icon: '' },
-        component: () => import('@/views/meeting/meeting')
-      },
-      {
         path: '/depart',
         name: 'Depart',
-        meta: { title: '部门', keepAlive: true, icon: '' },
+        meta: { title: '部门', keepAlive: true, icon: 'team' },
         component: () => import('@/views/depart/depart')
+      },
+      {
+        path: '/advert',
+        name: 'Advert',
+        meta: { title: '广告', keepAlive: true, icon: 'block' },
+        component: () => import('@/views/advert/advert')
+      },
+      {
+        path: '/users',
+        name: 'Users',
+        meta: { title: '用户', keepAlive: true, icon: 'team' },
+        component: () => import('@/views/users/users')
+      },
+      {
+        path: '/permission',
+        name: 'Permission',
+        meta: { title: '权限', keepAlive: true, icon: 'key' },
+        component: () => import('@/views/permission/permission')
       },
       {
         path: '/role',
         name: 'Role',
-        meta: { title: '角色', keepAlive: true, icon: '' },
+        meta: { title: '角色', keepAlive: true, icon: 'user' },
         component: () => import('@/views/role/role-list')
       }
     ]
