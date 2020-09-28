@@ -16,16 +16,17 @@
       >
         <a-input v-model="stateForm[item.field]" v-if="item.type === 'input'"></a-input>
         <a-textarea v-else-if="item.type === 'textarea'" v-model="stateForm[item.field]"></a-textarea>
-        <a-date-picker v-else-if="item.type === 'date'" v-model="stateForm[item.field]"></a-date-picker>
+        <a-date-picker v-else-if="item.type === 'date'" :value="date(stateForm[item.field])" @change="dateChange($event, item.field)"></a-date-picker>
         <a-select v-else-if="item.type === 'select'">
           <a-select-option></a-select-option>
         </a-select>
         <a-upload
           v-else-if="item.type === 'upload'"
-          name="img"
-          action="/upload/file"
+          name="file"
+          action="/api/upload"
           list-type="picture"
-          @change="fileChange"
+          :headers="headers"
+          @change="fileChange($event, item.field)"
         >
           <a-button>
             <a-icon type="upload" />上传
@@ -41,6 +42,7 @@
 
 <script>
 import moment from 'moment'
+import { ACCESS_TOKEN } from '@/store/mutation-types'
 
 export default {
   name: 'Form',
@@ -80,24 +82,42 @@ export default {
   },
   data () {
     return {
-      stateForm: {}
+      stateForm: {},
+      headers: {
+        AccessToken: this.$ls.get(ACCESS_TOKEN)
+      }
+    }
+  },
+  computed: {
+    date () {
+      return function (val) {
+        if (val) {
+          return moment(val)
+        } else {
+          return undefined
+        }
+      }
     }
   },
   created () {
-    console.log(23)
-    console.log(this.formItems)
     this.formItems.forEach(item => {
       this.stateForm[item.field] = ''
     })
-    this.stateForm = { ...this.stateForm }
+    Object.assign(this.stateForm, this.form)
   },
     methods: {
       moment,
-      fileChange () {},
-      // dateChange (dateObj, field) {
-      //   const { dateString } = dateObj
-      //   this.stateForm[field] = dateString
-      // },
+      fileChange (data, field) {
+        const { response } = data.file
+        if (response && response.data) {
+          const { AccessURL } = response.data
+          this.stateForm[field] = AccessURL
+        }
+      },
+      dateChange (dateObj, field) {
+        this.stateForm[field] = dateObj
+        this.stateForm = { ...this.stateForm }
+      },
       onOk () {
         return new Promise(resolve => {
           this.$refs.form.validate((valid, values) => {

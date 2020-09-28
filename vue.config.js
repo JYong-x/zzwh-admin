@@ -96,7 +96,11 @@ const vueConfig = {
     // If you want to turn on the proxy, please remove the mockjs /src/main.jsL11
     proxy: {
       '/api': {
+<<<<<<< HEAD
         target: 'http://192.168.0.101:8999',
+=======
+        target: 'http://localhost:8888',
+>>>>>>> 0485d7d465fa8093eadc40e992f1447fc32c504b
         ws: false,
         changeOrigin: true,
         pathRewrite: {

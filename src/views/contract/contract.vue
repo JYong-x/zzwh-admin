@@ -24,9 +24,21 @@
         :row-key="(record) => record.id"
         :row-selection="{ selectedRowKeys: selectedRowKeys, onChange: selectionChange }"
       >
+<<<<<<< HEAD
         <div slot="action" slot-scope="text, record" class="table-action">
           <a>编辑</a>
           <a @click="deleteData(record)">删除</a>
+=======
+        <div slot="action" slot-scope="text, record" class="table-row-action">
+          <template>
+            <a-divider type="vertical" />
+            <a @click="editData(record)">编辑</a>
+          </template>
+          <template>
+            <a-divider type="vertical" />
+            <a @click="deleteData(record)">删除</a>
+          </template>
+>>>>>>> 0485d7d465fa8093eadc40e992f1447fc32c504b
         </div>
       </s-table>
     </a-card>
@@ -112,8 +124,12 @@ export default {
           title: '操作',
           dataIndex: 'action',
           scopedSlots: { customRender: 'action' },
+<<<<<<< HEAD
           width: 100,
           ellipsis: true,
+=======
+          width: 120,
+>>>>>>> 0485d7d465fa8093eadc40e992f1447fc32c504b
           fixed: 'right'
         }
       ],
@@ -224,7 +240,6 @@ export default {
     }
   },
   created () {
-    console.log(this.moment('2020-09-23T13:10:42.250Z').format('YYYY-MM-DD HH:mm:ss'))
   },
   methods: {
     moment,
@@ -242,6 +257,24 @@ export default {
         {
           formItems: this.formItems,
           form: {},
+          formApi: this.formApi
+        },
+        {
+          title: '添加合同',
+          width: 700,
+          centered: true,
+          maskClosable: false,
+          ok: this.refreshData
+        }
+      )
+    },
+
+    editData (record) {
+      this.$dialog(
+        FormS,
+        {
+          formItems: this.formItems,
+          form: record,
           formApi: this.formApi
         },
         {
