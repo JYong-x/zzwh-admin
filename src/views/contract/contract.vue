@@ -25,6 +25,7 @@
         :row-selection="{ selectedRowKeys: selectedRowKeys, onChange: selectionChange }"
       >
         <div slot="action" slot-scope="text, record" class="table-action">
+          <a>编辑</a>
           <a @click="deleteData(record)">删除</a>
         </div>
       </s-table>
@@ -53,56 +54,66 @@ export default {
           title: '名称',
           dataIndex: 'name',
           width: 100,
-          fixed: 'left'
+          fixed: 'left',
+          ellipsis: true
         },
         {
           title: '编号',
           dataIndex: 'id',
-          width: 100
+          width: 100,
+          ellipsis: true
         },
         {
           title: '甲方代表单位',
           dataIndex: 'partACompany',
-          width: 150
+          width: 150,
+          ellipsis: true
         },
         {
           title: '乙方代表单位',
           dataIndex: 'partBCompany',
-          width: 150
+          width: 150,
+          ellipsis: true
         },
         {
           title: '丙方代表单位',
           dataIndex: 'partCCompany',
-          width: 150
+          width: 150,
+          ellipsis: true
         },
         {
           title: '到期时间',
           dataIndex: 'endOn',
           customRender: text => moment(text).format('YYYY-MM-DD HH:mm:ss'),
-          width: 100
+          width: 150,
+          ellipsis: true
         },
         {
           title: '创建人',
           dataIndex: 'createBy',
-          width: 100
+          width: 100,
+          ellipsis: true
         },
         {
           title: '创建时间',
           dataIndex: 'createOn',
           customRender: text => moment(text).format('YYYY-MM-DD HH:mm:ss'),
-          width: 100
+          width: 150,
+          ellipsis: true
         },
         {
           title: '生效时间',
           dataIndex: 'startOn',
           customRender: text => moment(text).format('YYYY-MM-DD HH:mm:ss'),
-          width: 100
+          width: 150,
+          ellipsis: true
         },
         {
           title: '操作',
           dataIndex: 'action',
           scopedSlots: { customRender: 'action' },
           width: 100,
+          ellipsis: true,
           fixed: 'right'
         }
       ],

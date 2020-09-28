@@ -107,12 +107,14 @@ export default {
           }
           console.log(this.formApi, this.$api[this.formApi.module])
             this.$api[this.formApi.module][this.formApi.api](this.stateForm).then(res => {
-              console.log(res)
               if (res && res.status === 'success') {
                 resolve(res.data)
               } else {
                 resolve(false)
               }
+            })
+            .catch(() => {
+              resolve(false)
             })
           })
         })

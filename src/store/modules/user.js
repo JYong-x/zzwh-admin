@@ -39,7 +39,7 @@ const user = {
         login(userInfo).then(response => {
           console.log(response)
           const result = response.data
-          Vue.ls.set(ACCESS_TOKEN, result.accessToken, 24 * 60 * 60 * 1000)
+          Vue.ls.set(ACCESS_TOKEN, result.accessToken)
           commit('SET_TOKEN', result.accessToken)
           resolve()
         }).catch(error => {

@@ -18,6 +18,7 @@ export default (Vue) => {
         const res = checkFunction()
         if (res instanceof Promise) {
           res.then(c => {
+            console.log(c)
             if (c) {
               afterHandel(c)
             } else {
